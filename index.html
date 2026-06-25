@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Trải Nghiệm Sớm Ứng Dụng</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            width: 90%;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 20px 0;
+        }
+        .badge {
+            background-color: #dbeafe;
+            color: var(--primary-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+        p.subtitle {
+            color: #64748b;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        input[type="email"] {
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="email"]:focus {
+            border-color: var(--primary-color);
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        button:disabled {
+            background-color: #93c5fd;
+            cursor: not-allowed;
+        }
+        .note {
+            font-size: 13px;
+            color: #ef4444;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        #message {
+            margin-top: 15px;
+            font-weight: 600;
+            display: none;
+        }
+        .success-text { color: #16a34a; }
+        .error-text { color: #dc2626; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <span class="badge">Android Closed Beta</span>
+    <h1>Trải Nghiệm Sớm Ứng Dụng</h1>
+    <p class="subtitle">Hãy là những người đầu tiên trải nghiệm và nhận đặc quyền phiên bản Premium khi ứng dụng ra mắt chính thức.</p>
+    
+    <form id="emailForm">
+        <input 
+            type="email" 
+            id="emailInput"
+            name="email" 
+            placeholder="Nhập Gmail của bạn..." 
+            required
+        >
+        <button type="submit" id="submitBtn">Đăng Ký Tham Gia</button>
+        <p class="note">* Lưu ý: Vui lòng dùng đúng Gmail đăng nhập Google Play để chúng tôi cấp quyền tải ứng dụng.</p>
+    </form>
+    
+    <div id="message"></div>
+</div>
+
+<script>
+    // DÁN LINK GOOGLE APPS SCRIPT WEB APP CỦA BẠN VÀO ĐÂY
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5f8IdCHfcUr9aas160CS3hmj_My45TSb1NyxtQ_uYk2S4VgavOYIJcBGLmeqJObG5kA/exec";
+
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const messageDiv = document.getElementById('message');
+        const emailVal = document.getElementById('emailInput').value;
+        
+        // Trạng thái đang gửi
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Chờ một chút...";
+        messageDiv.style.display = "none";
+
+        // Gửi dữ liệu bằng phương thức POST dạng URL-encoded (để Apps Script nhận qua e.parameter)
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Cần thiết để tránh lỗi CORS bảo mật khi gọi chéo domain sang Google
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({ 'email': emailVal })
+        })
+        .then(() => {
+            // Vì dùng mode: 'no-cors' nên trình duyệt không đọc được phản hồi JSON, 
+            // nhưng miễn là fetch không bắn lỗi mạng nghĩa là dữ liệu đã đi qua thành công.
+            messageDiv.innerHTML = "🎉 Đăng ký thành công! Chúng tôi sẽ gửi link tải app qua Gmail này sớm nhất.";
+            messageDiv.className = "success-text";
+            messageDiv.style.display = "block";
+            document.getElementById('emailForm').reset();
+        })
+        .catch(error => {
+            messageDiv.innerHTML = "❌ Có lỗi xảy ra. Vui lòng thử lại sau.";
+            messageDiv.className = "error-text";
+            messageDiv.style.display = "block";
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Đăng Ký Tham Gia";
+        });
+    });
+</script>
+
+</body>
+</html>
