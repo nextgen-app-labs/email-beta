@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Ký Trải Nghiệm Sớm Ứng Dụng</title>
+    <title>Chương Trình Trải Nghiệm Sớm Ứng Dụng Mới (Beta Test)</title>
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
         :root {
-            --primary-color: #2563eb;
-            --background-color: #f8fafc;
-            --text-color: #1e293b;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent: #10b981;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             line-height: 1.6;
             margin: 0;
             padding: 0;
@@ -23,101 +30,210 @@
             min-height: 100vh;
         }
         .container {
-            max-width: 500px;
-            width: 90%;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 520px;
+            width: 92%;
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             text-align: center;
-            margin: 20px 0;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .badge {
-            background-color: #dbeafe;
-            color: var(--primary-color);
-            padding: 6px 12px;
-            border-radius: 20px;
+        .brand {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .badge-reward {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 100px;
             font-size: 14px;
             font-weight: 600;
-            display: inline-block;
-            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 24px;
         }
         h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: #0f172a;
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
         }
-        p.subtitle {
-            color: #64748b;
-            font-size: 16px;
+        .tagline {
+            color: var(--text-muted);
+            font-size: 15px;
             margin-bottom: 30px;
         }
+        
+        /* Lộ trình các bước */
+        .steps {
+            text-align: left;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+        .step-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+        .step-num {
+            background: var(--primary);
+            color: white;
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        .step-text strong {
+            color: var(--text-main);
+        }
+        .step-text p {
+            margin: 2px 0 0 0;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
         form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
+        }
+        .input-group {
+            position: relative;
         }
         input[type="email"] {
-            padding: 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 16px;
+            width: 100%;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid #334155;
+            border-radius: 12px;
+            font-size: 15px;
+            color: white;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
         input[type="email"]:focus {
-            border-color: var(--primary-color);
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
         }
         button {
-            background-color: var(--primary-color);
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
         button:hover {
-            background-color: #1d4ed8;
+            background: var(--primary-hover);
+            transform: translateY(-1px);
         }
         button:disabled {
-            background-color: #93c5fd;
+            background: #475569;
+            color: var(--text-muted);
             cursor: not-allowed;
+            transform: none;
         }
         .note {
-            font-size: 13px;
-            color: #ef4444;
-            margin-top: 10px;
+            font-size: 12px;
+            color: #f43f5e;
+            margin-top: 12px;
             font-weight: 500;
+            text-align: left;
+            line-height: 1.4;
         }
         #message {
-            margin-top: 15px;
+            margin-top: 20px;
             font-weight: 600;
+            font-size: 15px;
+            padding: 14px;
+            border-radius: 12px;
             display: none;
         }
-        .success-text { color: #16a34a; }
-        .error-text { color: #dc2626; }
+        .success-box { 
+            background: rgba(22, 163, 74, 0.1); 
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            color: #4ade80; 
+        }
+        .error-box { 
+            background: rgba(220, 38, 38, 0.1); 
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            color: #f87171; 
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <span class="badge">Android Closed Beta</span>
-    <h1>Trải Nghiệm Sớm Ứng Dụng</h1>
-    <p class="subtitle">Hãy là những người đầu tiên trải nghiệm và nhận đặc quyền phiên bản Premium khi ứng dụng ra mắt chính thức.</p>
+    <div class="brand">Early Access Program</div>
+    <h1>Trải Nghiệm Ứng Dụng Mới & Nhận Thưởng</h1>
+    <p class="tagline">Chúng tôi đang phát triển các giải pháp tiện ích trên Android và cần những ý kiến đánh giá thực tế từ bạn để hoàn thiện sản phẩm.</p>
+    
+    <div class="badge-reward">
+        🎁 Phần thưởng: 5.000 VNĐ khi hoàn thành trải nghiệm
+    </div>
+
+    <!-- Quy trình tham gia chung -->
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">
+                <strong>Đăng ký quyền truy cập sớm</strong>
+                <p>Để lại Gmail đăng nhập Google Play của bạn phía dưới.</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">
+                <strong>Tải ứng dụng từ Google Play</strong>
+                <p>Chúng tôi sẽ gửi lời mời tham gia danh sách thử nghiệm ẩn vào email của bạn.</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">
+                <strong>Gửi phản hồi ngắn & Nhận quà</strong>
+                <p>Mở app trải nghiệm, gửi feedback hoặc ảnh chụp màn hình để nhận 5.000đ qua Ví điện tử.</p>
+            </div>
+        </div>
+    </div>
     
     <form id="emailForm">
-        <input 
-            type="email" 
-            id="emailInput"
-            name="email" 
-            placeholder="Nhập Gmail của bạn..." 
-            required
-        >
-        <button type="submit" id="submitBtn">Đăng Ký Tham Gia</button>
-        <p class="note">* Lưu ý: Vui lòng dùng đúng Gmail đăng nhập Google Play để chúng tôi cấp quyền tải ứng dụng.</p>
+        <div class="input-group">
+            <input 
+                type="email" 
+                id="emailInput"
+                name="email" 
+                placeholder="Nhập Gmail đăng ký Google Play của bạn..." 
+                required
+            >
+        </div>
+        <button type="submit" id="submitBtn">Đăng Ký Nhận Link Tải Ứng Dụng</button>
+        <p class="note">⚠️ <strong>Lưu ý quan trọng:</strong> Hệ thống Thử nghiệm khép kín (Closed Test) của Google Play chỉ cho phép các tài khoản đã đăng ký trước được tải app. Vui lòng dùng đúng Gmail bạn đang sử dụng trên điện thoại.</p>
     </form>
     
     <div id="message"></div>
@@ -134,37 +250,33 @@
         const messageDiv = document.getElementById('message');
         const emailVal = document.getElementById('emailInput').value;
         
-        // Trạng thái đang gửi
         submitBtn.disabled = true;
-        submitBtn.innerText = "Chờ một chút...";
+        submitBtn.innerText = "Đang ghi nhận...";
         messageDiv.style.display = "none";
 
-        // Gửi dữ liệu bằng phương thức POST dạng URL-encoded (để Apps Script nhận qua e.parameter)
         fetch(SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors', // Cần thiết để tránh lỗi CORS bảo mật khi gọi chéo domain sang Google
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({ 'email': emailVal })
         })
         .then(() => {
-            // Vì dùng mode: 'no-cors' nên trình duyệt không đọc được phản hồi JSON, 
-            // nhưng miễn là fetch không bắn lỗi mạng nghĩa là dữ liệu đã đi qua thành công.
-            messageDiv.innerHTML = "🎉 Đăng ký thành công! Chúng tôi sẽ gửi link tải app qua Gmail này sớm nhất.";
-            messageDiv.className = "success-text";
+            messageDiv.innerHTML = "🎉 Đăng ký thành công! Vui lòng kiểm tra hộp thư đến (hoặc hộp thư rác) trong vòng 24h tới để nhận liên kết tải ứng dụng và hướng dẫn nhận phần thưởng.";
+            messageDiv.className = "success-box";
             messageDiv.style.display = "block";
             document.getElementById('emailForm').reset();
         })
         .catch(error => {
-            messageDiv.innerHTML = "❌ Có lỗi xảy ra. Vui lòng thử lại sau.";
-            messageDiv.className = "error-text";
+            messageDiv.innerHTML = "❌ Có lỗi kết nối xảy ra. Vui lòng thử lại sau ít phút.";
+            messageDiv.className = "error-box";
             messageDiv.style.display = "block";
             console.error('Error:', error);
         })
         .finally(() => {
             submitBtn.disabled = false;
-            submitBtn.innerText = "Đăng Ký Tham Gia";
+            submitBtn.innerText = "Đăng Ký Nhận Link Tải Ứng Dụng";
         });
     });
 </script>
