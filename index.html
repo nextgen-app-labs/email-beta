@@ -263,7 +263,7 @@
             body: new URLSearchParams({ 'email': emailVal })
         })
         .then(() => {
-            messageDiv.innerHTML = "🎉 Đăng ký thành công! Vui lòng mở ứng dụng Gmail kiểm tra hộp thư đến trong vòng 24h tới để nhận liên kết tải ứng dụng và hướng dẫn nhận phần thưởng.";
+            messageDiv.innerHTML = "🎉 Đăng ký thành công! Vui lòng mở ứng dụng Gmail kiểm tra hộp thư đến trong vòng 24h tới để nhận liên kết tải ứng dụng và hướng dẫn nhận phí thử nghiệm.";
             messageDiv.className = "success-box";
             messageDiv.style.display = "block";
             document.getElementById('emailForm').reset();
@@ -276,7 +276,7 @@
         })
         .finally(() => {
             submitBtn.disabled = false;
-            submitBtn.innerText = "Đăng Ký Nhận Link Tải Ứng Dụng";
+            submitBtn.innerText = "Đăng Ký Tải Ứng Dụng";
         });
     });
 </script>
